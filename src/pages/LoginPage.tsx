@@ -24,13 +24,26 @@ export function LoginPage() {
   }, [])
 
   useEffect(() => {
-    const onMessage = async (event: MessageEvent) => {
-      if (event.data?.type === 'MICROSOFT_LOGIN_SUCCESS' && event.data.token) {
-        await loginWithTokens(event.data.token, event.data.refresh_token)
-        setLoc('/')
-      } else if (event.data?.type === 'MICROSOFT_LOGIN_ERROR') {
-        setError(event.data.message || 'Microsoft login failed')
-      }
+    const onMessage = (event: MessageEvent) => {
+      void (async () => {
+        if (event.data?.type === 'MICROSOFT_LOGIN_SUCCESS' && event.data.token) {
+          setBusy(true)
+          setError('')
+          try {
+            await loginWithTokens(event.data.token, event.data.refresh_token)
+            setLoc('/')
+          } catch (e) {
+            setError(e instanceof Error ? e.message : 'Login failed')
+          } finally {
+            setBusy(false)
+          }
+        } else if (
+          event.data?.type === 'MICROSOFT_LOGIN_ERROR' ||
+          event.data?.type === 'MICROSOFT_LOGIN_FAILED'
+        ) {
+          setError(event.data.message || 'Microsoft login failed')
+        }
+      })()
     }
     window.addEventListener('message', onMessage)
     return () => window.removeEventListener('message', onMessage)

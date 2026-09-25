@@ -12,6 +12,8 @@ import { MissingMblPage } from './pages/MissingMblPage'
 import { OrganizationsPage } from './pages/OrganizationsPage'
 import { OverviewPage } from './pages/OverviewPage'
 import { PlatformShipmentsPage } from './pages/PlatformShipmentsPage'
+import { PlatformShipmentDetailPage } from './pages/PlatformShipmentDetailPage'
+import { PlatformContainersPage } from './pages/PlatformContainersPage'
 import { RoutingPage } from './pages/RoutingPage'
 import { SettingsPage } from './pages/SettingsPage'
 import { UsersPage } from './pages/UsersPage'
@@ -67,9 +69,19 @@ function Routes() {
           <UserActivityPage />
         </RequireAuth>
       </Route>
+      <Route path="/shipments/:id">
+        <RequireAuth>
+          <PlatformShipmentDetailPage />
+        </RequireAuth>
+      </Route>
       <Route path="/shipments">
         <RequireAuth>
           <PlatformShipmentsPage />
+        </RequireAuth>
+      </Route>
+      <Route path="/containers">
+        <RequireAuth>
+          <PlatformContainersPage />
         </RequireAuth>
       </Route>
       <Route path="/approvals">

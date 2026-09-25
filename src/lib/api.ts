@@ -196,6 +196,7 @@ export const SA = {
   searchShipments: 'superadmin/search/shipments',
   sharedShipmentsSearch: 'superadmin/shared-shipments/search',
   containers: 'superadmin/containers',
+  containerDates: (id: string) => `superadmin/containers/${id}/dates`,
   missingMbl: 'superadmin/missing-mbl',
   assignmentRules: 'superadmin/assignment-rules',
   assignmentRule: (id: string) => `superadmin/assignment-rules/${id}`,

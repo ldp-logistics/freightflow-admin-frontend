@@ -10,6 +10,9 @@ import {
 import { api, SA } from '../lib/api'
 import { clearAuthTokens, getToken, setAuthTokens } from '../lib/token'
 
+export const NOT_AUTHORIZED_MESSAGE =
+  'You are not authorized to access Super Admin. A superuser account is required.'
+
 export type AdminUser = {
   id: string
   email: string
@@ -67,7 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (!me.is_superuser) {
           clearAuthTokens()
           setUser(null)
-          throw new Error('This account is not a superuser')
+          throw new Error(NOT_AUTHORIZED_MESSAGE)
         }
         setUser(me)
       } catch (err) {

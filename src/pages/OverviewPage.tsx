@@ -20,6 +20,7 @@ const shortcuts = [
   { href: '/organizations', label: 'Organizations', desc: 'Create, edit & approve tenants' },
   { href: '/workspace', label: 'Workspace', desc: 'Members, offices, fields, routing' },
   { href: '/shipments', label: 'Shipments', desc: 'Shared search & bulk assign' },
+  { href: '/containers', label: 'Containers', desc: 'Browse containers & open detail' },
   { href: '/hub', label: 'Hub', desc: 'Shipments, carriers, maintenance' },
   { href: '/approvals', label: 'Approvals', desc: 'Pending org queue' },
   { href: '/settings', label: 'Settings', desc: 'Hub API connection' },

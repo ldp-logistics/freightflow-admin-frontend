@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Link } from 'wouter'
 import { useMemo, useState, type FormEvent } from 'react'
 import { api, ApiError, SA, unwrapList } from '../lib/api'
 import { normalizeOrg, pick, pickStr, unwrapPagination, type NormalizedOrg } from '../lib/normalize'
@@ -355,6 +356,9 @@ export function PlatformShipmentsPage() {
                 {rows.map((row) => {
                   const id = sharedShipmentId(row)
                   const linked = parseLinkedOrgs(row)
+                  const detailHref = id
+                    ? `/shipments/${id}${linked[0]?.orgId ? `?org=${linked[0].orgId}` : ''}`
+                    : null
                   return (
                     <tr key={id || pickStr(row, 'mbl', 'mbl')} className="hover:bg-[var(--elevate)]">
                       <Td>
@@ -367,7 +371,15 @@ export function PlatformShipmentsPage() {
                           aria-label={`Select ${pickStr(row, 'mbl', 'mbl')}`}
                         />
                       </Td>
-                      <Td className="font-semibold">{pickStr(row, 'mbl', 'mbl', '—')}</Td>
+                      <Td className="font-semibold">
+                        {detailHref ? (
+                          <Link href={detailHref} className="text-[var(--brand)] hover:underline">
+                            {pickStr(row, 'mbl', 'mbl', '—')}
+                          </Link>
+                        ) : (
+                          pickStr(row, 'mbl', 'mbl', '—')
+                        )}
+                      </Td>
                       <Td className="font-mono text-xs">{pickStr(row, 'scac', 'scac', '—')}</Td>
                       <Td>
                         <Badge>{pickStr(row, 'status', 'status', '—')}</Badge>
@@ -449,9 +461,21 @@ export function PlatformShipmentsPage() {
             <tbody>
               {(platformQuery.data ?? []).map((r) => {
                 const sid = sharedShipmentId(r) || pickStr(r, 'id', 'id')
+                const org = pickStr(r, 'orgId', 'org_id')
+                const href = sid
+                  ? `/shipments/${sid}${org ? `?org=${org}` : ''}`
+                  : null
                 return (
                   <tr key={sid || pickStr(r, 'mbl', 'mbl')} className="hover:bg-[var(--elevate)]">
-                    <Td className="font-semibold">{pickStr(r, 'mbl', 'mbl', '—')}</Td>
+                    <Td className="font-semibold">
+                      {href ? (
+                        <Link href={href} className="text-[var(--brand)] hover:underline">
+                          {pickStr(r, 'mbl', 'mbl', '—')}
+                        </Link>
+                      ) : (
+                        pickStr(r, 'mbl', 'mbl', '—')
+                      )}
+                    </Td>
                     <Td>
                       {pickStr(r, 'status', 'status') ||
                         pickStr(r, 'currentStatus', 'current_status', '—')}
@@ -461,7 +485,17 @@ export function PlatformShipmentsPage() {
                         pickStr(r, 'organizationName', 'organization_name', '—')}
                     </Td>
                     <Td className="font-mono text-xs">
-                      {sid ? `${sid.slice(0, 8)}…` : '—'}
+                      {sid ? (
+                        href ? (
+                          <Link href={href} className="hover:underline">
+                            {`${sid.slice(0, 8)}…`}
+                          </Link>
+                        ) : (
+                          `${sid.slice(0, 8)}…`
+                        )
+                      ) : (
+                        '—'
+                      )}
                     </Td>
                   </tr>
                 )

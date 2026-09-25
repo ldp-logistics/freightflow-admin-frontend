@@ -16,6 +16,7 @@ const navGroups: NavGroup[] = [
       { href: '/users', label: 'Users' },
       { href: '/user-activity', label: 'User activity' },
       { href: '/shipments', label: 'Shipments' },
+      { href: '/containers', label: 'Containers' },
     ],
   },
   {
@@ -205,7 +206,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           </Button>
         </header>
 
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-5 sm:px-6 sm:py-7">{children}</main>
+        <main className="mx-auto w-full max-w-[1600px] flex-1 px-4 py-5 sm:px-6 sm:py-7 lg:px-8">
+          {children}
+        </main>
       </div>
     </div>
   )
