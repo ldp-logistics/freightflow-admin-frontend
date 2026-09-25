@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+/* LDP Logistics brand theme — matches freight-flow-frontend */
+:root {
+  --ink: #141518;
+  --muted: #84868b;
+  --line: #e2e1de;
+  --surface: #f8f8f6;
+  --panel: #ffffff;
+  --primary: #141518;
+  --primary-hover: #2a2c31;
+  --brand: #d6212b;
+  --brand-soft: rgba(214, 33, 43, 0.08);
+  --danger: #d6212b;
+  --warn: #b54708;
+  --ok: #067647;
+  --elevate: rgba(0, 0, 0, 0.03);
+  --radius: 0.5rem;
+  --sidebar-w: 15.5rem;
+  --font-sans: "Overpass", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Overpass Mono", "JetBrains Mono", Consolas, monospace;
+  --shadow-sm: 0 1px 3px rgba(20, 21, 24, 0.06), 0 1px 2px rgba(20, 21, 24, 0.04);
+  --shadow-md: 0 6px 16px -4px rgba(20, 21, 24, 0.1), 0 2px 6px -2px rgba(20, 21, 24, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  background-color: var(--surface);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(20, 21, 24, 0.03) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(20, 21, 24, 0.02) 0%, transparent 40%);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.ldp-eyebrow {
+  color: var(--brand);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ldp-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 1.5rem;
+  height: 3px;
+  margin-right: 0.625rem;
+  background: var(--brand);
+  clip-path: polygon(0 0, 70% 0, 100% 50%, 70% 100%, 0 100%);
+}
+
+.ldp-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.ldp-page-title {
+  font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0.35rem 0 0;
+}
+
+.ldp-page-desc {
+  margin: 0.4rem 0 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.45;
+  max-width: 42rem;
+}
+
+.admin-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .admin-shell {
+    flex-direction: row;
+  }
+}
+
+.admin-sidebar {
+  width: min(var(--sidebar-w), 88vw);
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.admin-nav-link:hover {
+  background: var(--elevate);
+  color: var(--ink);
+}
+
+.admin-nav-link[data-active="true"] {
+  background: var(--primary);
+  color: #fff;
+}
+
+.admin-nav-link[data-active="true"] .admin-nav-dot {
+  background: var(--brand);
+}
+
+.admin-nav-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--line);
+  flex-shrink: 0;
+}
+
+.admin-nav-group {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.75rem 0.75rem 0.35rem;
+}
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .hide-sm {
+    display: none !important;
+  }
+}
